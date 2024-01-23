@@ -1,5 +1,5 @@
 # Intentions
-## This launcher is made with a lot of throwing things at the wall, to be a similar launcher to the [U8 1.9 Launcher](https://absolllute.com/gdps/) by [Absolute](https://github.com/absolute).
+## This launcher is made with a lot of throwing things at the wall, to be a similar launcher to the [U8 1.9 Launcher](https://absolllute.com/gdps/) by [Absolute](https://github.com/absolllute).
 # Requirements
 ## For build or direct python run
 ### [CustomTkinter](https://pypi.org/project/customtkinter/)
