@@ -8,8 +8,8 @@
 
 # Supported Operating Systems
 ### Windows
-### Linux (Direct script run)
-### MacOS (Direct script run)
+### Linux (Direct script run + wine)
+### ~~MacOS~~
 
 # Short License
 ## Use if you want, but no trademarked use.
