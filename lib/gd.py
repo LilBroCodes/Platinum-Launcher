@@ -9,6 +9,9 @@ def universal_exec_open(filename: str, args: list[str], working_directory: str =
         if working_directory:
             working_directory = os.path.abspath(working_directory)
 
+        print(f"#Debug | Working Directory: {working_directory}")
+        print(f"#Debug | Full Path: {full_path}")
+
         subprocess.run([full_path] + args, check=True, cwd=working_directory)
         return True
     except subprocess.CalledProcessError as e:

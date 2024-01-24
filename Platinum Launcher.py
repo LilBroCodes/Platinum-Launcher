@@ -1,20 +1,37 @@
-import subprocess
-import threading
-
-from Launcher.lib.dialogue import *
+from _thread import start_new_thread
+from lib.dialogue import *
 # import Launcher.lib.server.oauth as gdauth
-from PIL import Image, ImageTk
-import Launcher.lib.changelogs as changelogs
-import Launcher.lib.gd as gd
+from PIL import Image
+import lib.changelogs as changelogs
+import lib.gd as gd
 
 
 def launch():
     try:
-        threading.Thread(target=gd.client).run()
-        info_popup("textOnly", "Fatal Error", "Thank you for playing platinum GDPS!", 0, True)
+        start_new_thread(gd.client, ())
+        info_popup("textOnly", "Info", "Launching platinum GDPS...", 0, True)
     except Exception as e:
         info_popup("textOnly", "Fatal Error", f"Ran into an error while launching Platinum GDPS: \n\n"
                                               f"{e}", getattr(e, "errno"), True)
+
+
+def creds():
+    data = """
+        Songs:
+            Flourish - Purrple Cat
+            
+        Images:
+            Main icon - Zud
+            Custom BG (Ingame) - Zud
+            T̶o̶o̶l̶s̶ ̶p̶a̶g̶e̶ ̶i̶c̶o̶n̶ (Unused in current version)
+            D̶e̶m̶o̶n̶l̶i̶s̶t̶ ̶i̶c̶o̶n̶ (Unused in current version)
+            M̶a̶i̶n̶ ̶p̶l̶a̶s̶t̶e̶r̶ ̶i̶c̶o̶n̶ (Unused in current version)
+            
+        Misc:
+            Modded version of gd that allows you to launch 1.9: Absolute
+                (+ Mini-Megahack)
+    """
+    info_popup("textOnly", "Credits", text=data, do_exit=False, width=450, height=350)
 
 
 def login():
@@ -25,8 +42,8 @@ def login():
     inputs = []
 
     def on_enter_button_click():
-        for i, query_input in enumerate(inputs):
-            results[i] = query_input.get()
+        for i, inpt in enumerate(inputs):
+            results[i] = inpt.get()
 
         popup.destroy()
 
@@ -63,6 +80,10 @@ def main():
     root = ctk.CTk()
     root.title("Platinum GDPS Launcher")
     root.geometry("1000x750")
+    root.iconbitmap("data/favicon.ico")
+
+    img = tk.PhotoImage(file="data/icon.png")
+    root.tk.call('wm', 'iconphoto', root._w, img)
 
     bottom_frame = ctk.CTkFrame(root, height=50, bg_color="#333333", border_width=0)
     bottom_frame.pack(side="bottom", fill="x")
@@ -97,7 +118,10 @@ def main():
                                      font=("Arial", 15), fg_color="#333333")
 
     for version in changelogs.get_all():
-        title = f"Version {version['version']}:"
+        title = f"Version {version['version']}:" if version['success'] else version['version'] + ":"
+        current = changelogs_text.get("0.0", "end")
+        if not len(current) < 10:
+            title = "\n" + title
         description = version['description']
         changelogs_text.insert('end', title + "\n")
         changelogs_text.insert('end', "    " + description)
@@ -110,6 +134,10 @@ def main():
     plaster = ctk.CTkButton(master=top_frame, text="", image=plaster_image, bg_color="#333333", fg_color="#333333",
                             border_color="#333333", hover_color="#333333", width=50)
     plaster.pack(padx=10, side="left")
+
+    launch_button = ctk.CTkButton(top_frame, text="Credits", font=("Arial", 20), text_color="white", fg_color="#444444",
+                                  hover_color="#555555", width=50, height=50, command=creds)
+    launch_button.pack(side="left", padx=5)
 
     root.mainloop()
 
