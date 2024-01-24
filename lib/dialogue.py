@@ -60,13 +60,14 @@ def ask_strings(queries, title):
     return results
 
 
-def info_popup(popup_type: str, title="CTKDialogue Popup", text="CTKDialogue Error Text", code=1, do_exit=False):
+def info_popup(popup_type: str, title="CTKDialogue Popup", text="CTKDialogue Error Text", code=1, do_exit=False,
+               close="Exit", width=300, height=100):
     if not check_case_insensitive(popup_type, ["textOnly", "imageOnly", "textAndImage"]):
         raise ValueError(f"Argument {popup_type} is not a valid type, expected 'textOnly', 'imageOnly',"
                          f" 'textAndImage'. (Not case sensitive)")
 
     popup_root = ctk.CTk()
-    popup_root.geometry("300x150")
+    popup_root.geometry(f"{width}x{height}")
     popup_root.title(title)
 
     # Make the window not resizable
@@ -80,10 +81,11 @@ def info_popup(popup_type: str, title="CTKDialogue Popup", text="CTKDialogue Err
     popup_root.bind("<Return>", leave)
 
     # Configure the label to display text on the left and wrap around
-    error_text = ctk.CTkLabel(master=popup_root, text=text, text_color="#ffffff", anchor="w", justify="left", wraplength=280)
+    error_text = ctk.CTkLabel(master=popup_root, text=text, text_color="#ffffff", anchor="w", justify="left",
+                              wraplength=int(width*0.9333333333333333))
     error_text.pack(pady=40, side="top")
 
-    exit_button = ctk.CTkButton(master=popup_root, text="Exit", command=leave)
+    exit_button = ctk.CTkButton(master=popup_root, text=close, command=leave)
     exit_button.pack(pady=0, side="top")
 
     popup_root.mainloop()
