@@ -1,16 +1,16 @@
-import subprocess
 import threading
 
-from Launcher.lib.dialogue import *
+from lib.dialogue import *
 # import Launcher.lib.server.oauth as gdauth
-from PIL import Image, ImageTk
-import Launcher.lib.changelogs as changelogs
-import Launcher.lib.gd as gd
+from PIL import Image
+import lib.changelogs as changelogs
+import lib.gd as gd
+from _thread import start_new_thread
 
 
 def launch():
     try:
-        threading.Thread(target=gd.client).run()
+        start_new_thread(gd.client, ())
         info_popup("textOnly", "Fatal Error", "Thank you for playing platinum GDPS!", 0, True)
     except Exception as e:
         info_popup("textOnly", "Fatal Error", f"Ran into an error while launching Platinum GDPS: \n\n"
@@ -25,8 +25,8 @@ def login():
     inputs = []
 
     def on_enter_button_click():
-        for i, query_input in enumerate(inputs):
-            results[i] = query_input.get()
+        for i, inpt in enumerate(inputs):
+            results[i] = inpt.get()
 
         popup.destroy()
 
