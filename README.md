@@ -5,6 +5,7 @@
 ### [CustomTkinter](https://pypi.org/project/customtkinter/)
 ### [Requests](https://pypi.org/project/requests/)
 ### [PyInstaller](https://pypi.org/project/pyinstaller/) (For build to exe)
+### [Pillow](https://pypi.org/project/pillow/)
 
 # Supported Operating Systems
 ### Windows
