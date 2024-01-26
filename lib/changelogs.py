@@ -16,7 +16,8 @@ def get_all():
         api_url = "https://pnmgd.alwaysdata.net/api/src/changelogs.json"
         response = requests.get(api_url)
         data = response.json()
-        data["success"] = True
+        for version in data["versions"]:
+            version["success"] = True
     except json.JSONDecodeError as e:
         data = {
             "versions": [

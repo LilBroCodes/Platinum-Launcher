@@ -119,9 +119,6 @@ def main():
 
     for version in changelogs.get_all():
         title = f"Version {version['version']}:" if version['success'] else version['version'] + ":"
-        current = changelogs_text.get("0.0", "end")
-        if not len(current) < 10:
-            title = "\n" + title
         description = version['description']
         changelogs_text.insert('end', title + "\n")
         changelogs_text.insert('end', "    " + description)
