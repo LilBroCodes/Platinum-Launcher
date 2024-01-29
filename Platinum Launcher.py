@@ -1,6 +1,6 @@
 from _thread import start_new_thread
 from lib.dialogue import *
-# import Launcher.lib.server.oauth as gdauth
+# import lib.server.oauth as gdauth
 from PIL import Image
 import lib.changelogs as changelogs
 import lib.gd as gd
